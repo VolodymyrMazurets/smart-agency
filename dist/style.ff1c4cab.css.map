@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles\\style.scss"],"names":[],"mappings":"AAAA;EACI;;AACA;EACI","file":"style.ff1c4cab.css","sourceRoot":"..\\src","sourcesContent":["h1 {\r\n    font-size: 50px;\r\n    span {\r\n        font-size: 10px;\r\n    }\r\n}"]}
