@@ -1,8 +1,130 @@
-h1 {
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap");
+:root {
+  --main-color: rgba(0, 0, 0, 0.65);
+  --title-orange: rgba(252, 103, 68, 0.8);
+  --title-black: rgba(0, 0, 0, 0.8);
+  --card-text: rgba(255, 255, 255, 0.75);
+  --first-card: #4eb2f7;
+  --second-card: #c049f8;
+  --third-card: #817eff;
+  --fourth-card: #f74770;
+  --white: rgba(255, 255, 255, 1);
+  --black: rgba(0, 0, 0, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-size: 100%;
+  min-height: 100vh;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  color: var(--main-color);
+}
+
+.container {
+  max-width: 1140px;
+  margin: auto;
+  padding: 0 15px;
+}
+
+.working-process {
+  padding: 144px 0 181px;
+}
+.working-process .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.working-process__title {
+  color: var(--title-black);
   font-size: 50px;
 }
-h1 span {
-  font-size: 10px;
+.working-process__title span {
+  color: var(--title-orange);
+  margin-right: 8px;
+}
+.working-process__text {
+  letter-spacing: 0.16px;
+  margin-bottom: 108px;
+}
+.working-process__list {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+.working-process__item {
+  margin-bottom: 15px;
+  padding: 54px 0 0;
+  flex: 1 1 25%;
+  margin-right: 30px;
+  max-width: 25%;
+  background-color: var(--first-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--card-text);
+}
+.working-process__item:nth-child(2) {
+  background-color: var(--second-card);
+}
+.working-process__item:nth-child(3) {
+  background-color: var(--third-card);
+}
+.working-process__item:nth-child(4) {
+  background-color: var(--fourth-card);
+  margin-right: 0;
+}
+.working-process__wrapper {
+  text-align: center;
+}
+.working-process__icon {
+  font-size: 50px;
+  margin-bottom: 22px;
+}
+.working-process__card-title {
+  font-size: 20px;
+  letter-spacing: 0.2px;
+  margin-bottom: 24px;
+}
+.working-process__card-text {
+  line-height: 1.47;
+  letter-spacing: 0.15px;
+  font-size: 15px;
+  width: 75%;
+  text-align: center;
+  margin: auto;
+}
+.working-process__card-btn {
+  position: relative;
+  transform: translateY(50%);
+  background-color: var(--white);
+  color: var(--title-black);
+  font-size: 16px;
+  border-radius: 27px;
+  box-shadow: 1px 5.9px 14px 0 rgba(20, 20, 21, 0.09);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 60px;
+  min-height: 55px;
+  transition: 0.3s background-color ease;
+}
+.working-process__card-btn i {
+  margin-right: 24px;
+}
+.working-process__card-btn:hover {
+  background-color: #e6e6e6;
 }
 
 /*# sourceMappingURL=/style.ff1c4cab.css.map */
