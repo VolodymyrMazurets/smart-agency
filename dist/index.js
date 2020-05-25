@@ -117,118 +117,74 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/index.js":[function(require,module,exports) {
-const list = document.getElementById('list');
-const loader = document.getElementById('loader');
+})({"../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
 
-const randomColor = () => {
-  const round = Math.round;
-  const random = Math.random;
-  const koef = 255;
-  return `rgba(${round(random() * koef)},${round(random() * koef)},${round(random() * koef)},${random().toFixed(1)})`;
-};
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
 
-const renderList = data => {
-  const listItem = data.map(({
-    icon,
-    title,
-    text,
-    link
-  }) => {
-    return `<li class="working-process__item">
-                <div class="working-process__card" style="background-color: ${randomColor()}">
-                  <div class="working-process__wrapper">
-                    <i class="${icon} working-process__icon" style="color: ${randomColor()}"></i>
-                    <h4 class="working-process__card-title">${title}</h4>
-                    <p class="working-process__card-text">
-                      ${text}
-                    </p>
-                </div>
-                <a href="${link}" class="working-process__card-btn">
-                  <i class="fas fa-plus"></i>
-                  Know More
-                </a>
-              </div>
-          </li>`;
-  });
-  list.innerHTML = listItem.join('');
-};
+  return bundleURL;
+}
 
-const fetchData = async () => {
-  // btn.innerHTML = "<span uk-spinner></span>";
-  setTimeout(async () => {
-    try {
-      loader.style.cssText = 'display: block';
-      await fetch('https://jsonplaceholder.typicode.com/posts').then(response => {
-        // btn.innerHTML = 'Primary';
-        return response.json();
-      }).then(json => {
-        const resp = json.map(item => ({
-          text: item.body,
-          title: item.title,
-          link: '#',
-          icon: 'fas fa-magnet'
-        }));
-        renderList(resp);
-        loader.style.cssText = 'display: none';
-      });
-    } catch (e) {
-      console.error(e);
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
     }
-  }, 2000);
-};
+  }
 
-fetchData(); // const TEST_DATA = [
-//   {
-//     id: 1,
-//     icon: "fas fa-magnet",
-//     title: "Koc Koi Tomi",
-//     text: "Lorem ipsum is dummy lorem very dumy",
-//     link: "#",
-//   },
-//   {
-//     id: 2,
-//     icon: "fas fa-bug",
-//     title: "Koimona Set",
-//     text: "Lorem ipsum is dummy lorem very dumyddddd",
-//     link: "#",
-//   },
-//   {
-//     id: 3,
-//     icon: "fas fa-cogs",
-//     title: "Setting Koire",
-//     text: "Lorem ipsum is dummy lorem very dumy ddddd",
-//     link: "#",
-//   },
-//   {
-//     id: 4,
-//     icon: "fas fa-camera-retro",
-//     title: "Ko Image Lara",
-//     text: "Lorem ipsum is dummy lorem very dumy dddddddda",
-//     link: "#",
-//   },
-// ];
-// ES 5
-// function User(name) {
-//   this.name = name;
-// };
-// User.prototype.sayHi = function() {
-//   alert(this.name);
-// }
-// class User {
-//   constructor(name, id, email, token) {
-//     this.name = name;
-//     this.id = id;
-//     this.email = email;
-//     this.token = token;
-//   }
-//   sayHi() {
-//     alert(this.name);
-//   }
-// }
-// const user = new User("Vova");
-// user.sayHi();
-},{}],"../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -432,5 +388,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/index.js"], null)
-//# sourceMappingURL=/js.00a46daa.js.map
+},{}]},{},["../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/index.js.map
