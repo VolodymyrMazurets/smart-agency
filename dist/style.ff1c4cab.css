@@ -71,4 +71,20 @@ ul {
   text-align: center;
 }
 
+.products {
+  padding: 50px 0;
+}
+.products__list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.products__item {
+  flex-basis: calc(25% - 15px * 4 / 3);
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+.products__item:last-child {
+  margin-right: 0;
+}
+
 /*# sourceMappingURL=/style.ff1c4cab.css.map */

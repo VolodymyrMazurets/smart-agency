@@ -1,0 +1,9 @@
+@base_url = {{dev_url}}
+
+# @name Products
+
+GET {{base_url}}/products
+content-type: application/json
+Accept: application/json
+
+### 

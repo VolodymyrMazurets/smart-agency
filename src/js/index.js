@@ -1,4 +1,4 @@
-import { fetchUsers } from './http';
+import { fetchUsers, fetchProducts } from './http';
 import { getItem } from './helpers';
 
 const users = getItem('users');
@@ -10,3 +10,5 @@ showUsers.onclick = async () => {
   UIkit.modal(modal).show();
   await fetchUsers();
 };
+
+fetchProducts();

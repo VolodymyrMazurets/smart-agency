@@ -150,7 +150,7 @@ exports.getItem = getItem;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.renderUsersList = void 0;
+exports.renderProductsList = exports.renderUsersList = void 0;
 
 const renderUsersList = data => {
   const result = data.map(item => {
@@ -164,6 +164,23 @@ const renderUsersList = data => {
 };
 
 exports.renderUsersList = renderUsersList;
+
+const renderProductsList = data => {
+  const result = data.map(item => {
+    return ` <li class="uk-card uk-card-default products__item">
+              <div class="uk-card-media-top">
+                <img src="${item.image}" alt="user" />
+              </div>
+              <div class="uk-card-body">
+                <h3 class="uk-card-title">${item.title}</h3>
+                <p>${item.description}</p>
+              </div>
+            </li>`;
+  });
+  return result;
+};
+
+exports.renderProductsList = renderProductsList;
 },{}],"js/helpers/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -227,7 +244,10 @@ const fetchUsers = async () => {
 exports.fetchUsers = fetchUsers;
 
 const fetchProducts = async () => {
-  try {} catch (e) {
+  try {
+    const products = await fetch(_urls.urls.products).then(res => res.json());
+    console.log(products);
+  } catch (e) {
     UIkit.notification({
       message: e,
       status: 'danger',
@@ -284,6 +304,8 @@ showUsers.onclick = async () => {
   UIkit.modal(modal).show();
   await (0, _http.fetchUsers)();
 };
+
+(0, _http.fetchProducts)();
 },{"./http":"js/http/index.js","./helpers":"js/helpers/index.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

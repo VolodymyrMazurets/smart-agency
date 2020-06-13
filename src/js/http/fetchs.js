@@ -22,7 +22,8 @@ export const fetchUsers = async () => {
 
 export const fetchProducts = async () => {
   try {
-
+    const products = await fetch(urls.products).then((res) => res.json());
+    console.log(products);
   } catch (e) {
     UIkit.notification({
       message: e,
