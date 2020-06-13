@@ -12,7 +12,7 @@ export const renderUsersList = (data) => {
 export const renderProductsList = (data) => {
   const result = data.map((item) => {
     return ` <li class="uk-card uk-card-default products__item">
-              <div class="uk-card-media-top">
+              <div class="uk-card-media-top products__card-head">
                 <img src="${item.image}" alt="user" />
               </div>
               <div class="uk-card-body">

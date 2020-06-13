@@ -168,7 +168,7 @@ exports.renderUsersList = renderUsersList;
 const renderProductsList = data => {
   const result = data.map(item => {
     return ` <li class="uk-card uk-card-default products__item">
-              <div class="uk-card-media-top">
+              <div class="uk-card-media-top products__card-head">
                 <img src="${item.image}" alt="user" />
               </div>
               <div class="uk-card-body">
@@ -223,8 +223,6 @@ var _urls = require("./urls");
 
 var _helpers = require("../helpers");
 
-const loader = (0, _helpers.getItem)('loader');
-
 const fetchUsers = async () => {
   try {
     loader.classList.add('active');
@@ -245,8 +243,8 @@ exports.fetchUsers = fetchUsers;
 
 const fetchProducts = async () => {
   try {
-    const products = await fetch(_urls.urls.products).then(res => res.json());
-    console.log(products);
+    const data = await fetch(_urls.urls.products).then(res => res.json());
+    products.innerHTML = (0, _helpers.renderProductsList)(data).join('');
   } catch (e) {
     UIkit.notification({
       message: e,
@@ -298,6 +296,8 @@ var _helpers = require("./helpers");
 const users = (0, _helpers.getItem)('users');
 const showUsers = (0, _helpers.getItem)('show-users');
 const modal = (0, _helpers.getItem)('modal');
+const loader = (0, _helpers.getItem)('loader');
+const products = (0, _helpers.getItem)('products');
 
 showUsers.onclick = async () => {
   users.innerHTML = '';
@@ -305,7 +305,57 @@ showUsers.onclick = async () => {
   await (0, _http.fetchUsers)();
 };
 
-(0, _http.fetchProducts)();
+document.addEventListener('DOMContentLoaded', () => {
+  (0, _http.fetchProducts)();
+}); // const shoppingList = [
+//   {
+//     name: 'bread',
+//     count: 2,
+//     isBought: true,
+//   },
+//   {
+//     name: 'butter',
+//     count: 1,
+//     isBought: true,
+//   },
+//   {
+//     name: 'milk',
+//     count: 3,
+//     isBought: false,
+//   },
+//   {
+//     name: 'egg',
+//     count: 6,
+//     isBought: false,
+//   },
+//   {
+//     name: 'tomato',
+//     count: 8,
+//     isBought: false,
+//   },
+//   {
+//     name: 'sauce',
+//     count: 1,
+//     isBought: true,
+//   },
+// ];
+// const addBuyingProduct = (name, arr) => {
+//   for (let i = 0; i < arr.length; i++) {
+//     if (name === arr[i].name) {
+//       arr[i].isBought = true;
+//     }
+//   }
+//   return arr;
+// };
+// const addPurchasedProduct = (arr = [], name='') => {
+//   let res = [...arr];
+//   const idx = arr.findIndex((item) => item.name === name);
+//   const element = arr.find((item) => item.name === name);
+//   element.isBought = true;
+//   res.splice(idx, 1, element);
+//   return res;
+// };
+// console.log(addPurchasedProduct(shoppingList, 'tomato'));
 },{"./http":"js/http/index.js","./helpers":"js/helpers/index.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

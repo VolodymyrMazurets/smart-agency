@@ -1,8 +1,5 @@
 import { urls } from './urls';
-import { renderUsersList } from '../helpers';
-import { getItem } from '../helpers';
-
-const loader = getItem('loader');
+import { renderUsersList, renderProductsList } from '../helpers';
 
 export const fetchUsers = async () => {
   try {
@@ -22,8 +19,8 @@ export const fetchUsers = async () => {
 
 export const fetchProducts = async () => {
   try {
-    const products = await fetch(urls.products).then((res) => res.json());
-    console.log(products);
+    const data = await fetch(urls.products).then((res) => res.json());
+    products.innerHTML = renderProductsList(data).join('');
   } catch (e) {
     UIkit.notification({
       message: e,

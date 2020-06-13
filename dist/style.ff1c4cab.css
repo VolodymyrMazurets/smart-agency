@@ -80,11 +80,19 @@ ul {
 }
 .products__item {
   flex-basis: calc(25% - 15px * 4 / 3);
+  max-width: calc(25% - 15px * 4 / 3);
   margin-right: 15px;
   margin-bottom: 15px;
 }
 .products__item:last-child {
   margin-right: 0;
+}
+.products__card-head {
+  padding: 24px 24px 0;
+}
+.products__card-head img {
+  width: 100%;
+  height: auto;
 }
 
 /*# sourceMappingURL=/style.ff1c4cab.css.map */

@@ -6,10 +6,19 @@
   }
   &__item {
     flex-basis: calc(25% - 15px * 4 / 3);
+    max-width: calc(25% - 15px * 4 / 3);
     margin-right: 15px;
     margin-bottom: 15px;
     &:last-child {
         margin-right: 0;
     }
+  }
+  &__card-head {
+      padding: 24px 24px 0;
+    //   max-height: 200px;
+      img {
+          width: 100%;
+          height: auto;
+      }
   }
 }

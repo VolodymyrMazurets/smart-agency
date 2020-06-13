@@ -1,0 +1,9 @@
+@base_url = {{dev_url}}
+
+# @name Carts
+
+GET {{base_url}}/carts
+content-type: application/json
+Accept: application/json
+
+### 
