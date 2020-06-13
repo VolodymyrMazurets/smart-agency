@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/urls.js":[function(require,module,exports) {
+})({"js/http/urls.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -131,39 +131,88 @@ const urls = {
   users: `${BASE_URL}/users`
 };
 exports.urls = urls;
-},{}],"js/index.js":[function(require,module,exports) {
+},{}],"js/helpers/helpers.js":[function(require,module,exports) {
 "use strict";
 
-var _urls = require("./urls");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getItem = void 0;
 
 const getItem = id => {
   return document.getElementById(id);
 };
 
-const users = getItem('users');
-const loader = getItem('loader');
+exports.getItem = getItem;
+},{}],"js/helpers/render.js":[function(require,module,exports) {
+"use strict";
 
-const renderList = data => {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.renderUsersList = void 0;
+
+const renderUsersList = data => {
   const result = data.map(item => {
-    return `<li class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
-        <img src="https://robohash.org/honey?set=set${item.id}" alt="user" width="80px" height="80px"/>
-        <h3 class="uk-card-title">${item.name.firstname} ${item.name.lastname}</h3>
-        <p>${item.email}</p>
-      </li>`;
+    return `<li class="uk-card uk-card-default uk-card-body">
+          <img src="https://robohash.org/honey?set=set${item.id}" alt="user" width="80px" height="80px"/>
+          <h3 class="uk-card-title">${item.name.firstname} ${item.name.lastname}</h3>
+          <p>${item.email}</p>
+        </li>`;
   });
   return result;
-}; // fetch(urls.users)
-//   .then((res) => res.json())
-//   .then((json) => {
-//     users.innerHTML = renderList(json).join('');
-//   });
+};
 
+exports.renderUsersList = renderUsersList;
+},{}],"js/helpers/index.js":[function(require,module,exports) {
+"use strict";
 
-const testData = async () => {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _helpers = require("./helpers");
+
+Object.keys(_helpers).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _helpers[key];
+    }
+  });
+});
+
+var _render = require("./render");
+
+Object.keys(_render).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _render[key];
+    }
+  });
+});
+},{"./helpers":"js/helpers/helpers.js","./render":"js/helpers/render.js"}],"js/http/fetchs.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchProducts = exports.fetchUsers = void 0;
+
+var _urls = require("./urls");
+
+var _helpers = require("../helpers");
+
+const loader = (0, _helpers.getItem)('loader');
+
+const fetchUsers = async () => {
   try {
     loader.classList.add('active');
     const usersTest = await fetch(_urls.urls.users).then(res => res.json());
-    users.innerHTML = renderList(usersTest).join('');
+    users.innerHTML = (0, _helpers.renderUsersList)(usersTest).join('');
     loader.classList.remove('active');
   } catch (e) {
     UIkit.notification({
@@ -172,13 +221,70 @@ const testData = async () => {
       pos: 'top-right',
       timeout: 3000
     });
-  } finally {}
+  }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  testData();
+exports.fetchUsers = fetchUsers;
+
+const fetchProducts = async () => {
+  try {} catch (e) {
+    UIkit.notification({
+      message: e,
+      status: 'danger',
+      pos: 'top-right',
+      timeout: 3000
+    });
+  }
+};
+
+exports.fetchProducts = fetchProducts;
+},{"./urls":"js/http/urls.js","../helpers":"js/helpers/index.js"}],"js/http/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-},{"./urls":"js/urls.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+var _fetchs = require("./fetchs");
+
+Object.keys(_fetchs).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _fetchs[key];
+    }
+  });
+});
+
+var _urls = require("./urls");
+
+Object.keys(_urls).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _urls[key];
+    }
+  });
+});
+},{"./fetchs":"js/http/fetchs.js","./urls":"js/http/urls.js"}],"js/index.js":[function(require,module,exports) {
+"use strict";
+
+var _http = require("./http");
+
+var _helpers = require("./helpers");
+
+const users = (0, _helpers.getItem)('users');
+const showUsers = (0, _helpers.getItem)('show-users');
+const modal = (0, _helpers.getItem)('modal');
+
+showUsers.onclick = async () => {
+  users.innerHTML = '';
+  UIkit.modal(modal).show();
+  await (0, _http.fetchUsers)();
+};
+},{"./http":"js/http/index.js","./helpers":"js/helpers/index.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -206,7 +312,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50006" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55881" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

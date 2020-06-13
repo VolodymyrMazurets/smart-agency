@@ -8,10 +8,16 @@
     <link rel="stylesheet" href="./styles/style.scss" />
   </head>
   <body>
-    <span uk-spinner="ratio: 10" class="loader" id="loader"></span>
+    <section class="users">
+      <button class="uk-button uk-button-default" id="show-users">Show Users</button>
 
-   <section class="users">
-     <ul id="users" class=""></ul>
+      <div uk-modal id="modal">
+        <div class="uk-modal-dialog uk-modal-body modal">
+          <span uk-spinner="ratio: 10" class="loader" id="loader"></span>
+          <button class="uk-modal-close-default" type="button" uk-close></button>
+          <ul id="users" class=""></ul>
+        </div>
+      </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.3/dist/js/uikit.min.js"></script>
